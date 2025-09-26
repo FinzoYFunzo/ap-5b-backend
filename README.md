@@ -17,7 +17,7 @@ Then, build and run the Docker container with:
    npm run docker-dev
    ```
 
-This will build a Docker image from the source code, create a container running PostgreSQL and Prisma Studio and check for pending migrations.
+This will build a Docker image from the source code, create a container with PostgreSQL and Prisma Studio, and apply any pending migrations.
 
 **Services**
 * endpoint: `http://localhost:3000/`
