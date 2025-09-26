@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  Student
+  Teacher
+}
+
+enum ClassCategory {
+  Calculo
+  Dinamica
+  Economia
+  Quimica
+  Computacion
+  Otro
+}
+
+enum ClassRequestState {
+  Pending
+  Approved
+  Rejected
+}
+
+model User {
+  id              Int             @id @default(autoincrement())
+  username        String          @unique
+  first_name      String
+  last_name_1     String
+  last_name_2     String?
+  email           String          @unique
+  password        String
+  role            UserRole        @default(Student)
+  phone           String?
+  isDeleted       Boolean         @default(false)
+  classOffers     ClassOffer[]
+  classRequests   ClassRequest[]  
+  writtenReviews  Review[]        @relation("Reviewer")
+  receivedReviews Review[]        @relation("Teacher")
+}
+
+model ClassOffer {
+  id             Int             @id @default(autoincrement())
+  authorId       Int
+  author         User            @relation(fields: [authorId], references: [id])
+  title          String
+  description    String
+  price          Int
+  createdAt      DateTime        @default(now()) @db.Timestamp(0)
+  category       ClassCategory   @default(Otro)
+  classRequests  ClassRequest[]
+}
+
+model ClassRequest {
+  id            Int                @id @default(autoincrement())
+  classOfferId  Int
+  classOffer    ClassOffer         @relation(fields: [classOfferId], references: [id])
+  userId        Int
+  user          User               @relation(fields: [userId], references: [id])
+  state         ClassRequestState  @default(Pending)
+  createdAt     DateTime           @default(now())
+}
+
+model Transaction {
+  id             Int        @id @default(autoincrement())
+  token          String
+  payment_date   DateTime   @db.Timestamp()
+  payment_method String?
+  amount         Int
+  createdAt      DateTime   @default(now()) @db.Timestamp(0)
+}
+
+model Review {
+  id          Int       @id @default(autoincrement())
+  reviewerId  Int
+  reviewer    User      @relation("Reviewer", fields: [reviewerId], references: [id])
+  teacherId   Int
+  teacher     User      @relation("Teacher", fields: [teacherId], references: [id])
+  rating      Int
+  content     String?
+  createdAt   DateTime  @default(now()) @db.Timestamp(0)
+}
