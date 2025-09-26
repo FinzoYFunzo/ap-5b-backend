@@ -1,0 +1,57 @@
+services:
+  express-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - prisma-network
+
+  prisma-studio:
+    image: node:slim
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    command: npx prisma studio --port 5555 --browser none
+    ports:
+      - "5555:5555"
+    env_file:
+      - .env
+    networks:
+      - prisma-network
+
+  postgres_db:
+    image: postgres:18
+    restart: always
+    ports:
+      - "5433:5432"
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: prisma
+
+    networks:
+      - prisma-network
+    # Posteriormente configurar pgadmin
+    #pgadmin:
+    #    image: dpage/pgadmin4:latest
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+networks:
+  prisma-network:
+
+volumes:
+  postgres-data:

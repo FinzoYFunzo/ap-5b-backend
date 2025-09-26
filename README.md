@@ -1,4 +1,30 @@
-**Setup**
+## Run in Docker
+
+This can be achive by creating a `.env` file with the following:
+
+   ```env
+   # Database
+   DATABASE_URL="postgresql://postgres:prisma@postgres_db:5432/postgres?schema=public"
+
+   # Application
+   PORT=3000
+   NODE_ENV=development
+   ```
+
+Then, build and run the Docker container with:
+
+   ```bash
+   npm run docker-dev
+   ```
+
+This will build a Docker image from the source code, create a container running PostgreSQL and Prisma Studio and check for pending migrations.
+
+**Services**
+* endpoint: `http://localhost:3000/`
+* Prisma Studio: `http://localhost:5555/`
+* PostgresSQL: `http://localhost:5433/`
+
+## Setup (local)
 
 1. Create a `.env` file in the root directory:
 

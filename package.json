@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "docker-dev": "docker compose -f docker-compose-dev.yml up",
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "DEBUG=myapp:* nodemon --watch 'src/**/*.ts' --exec 'tsx' src/index.ts",
-    "lint": "eslint 'src/**/*.ts'"
+    "lint": "eslint 'src/**/*.ts'",
+    "db:deploy": "npx prisma migrate deploy && npx prisma generate"
   },
   "repository": {
     "type": "module",
