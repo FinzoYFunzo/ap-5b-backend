@@ -24,6 +24,8 @@ This will build a Docker image from the source code, create a container with Pos
 * Prisma Studio: `http://localhost:5555/`
 * PostgresSQL: `http://localhost:5433/`
 
+> If you make changes to the **project dependencies**, make sure to rebuild the Docker container by running `npm run docker-build`.
+
 ## Setup (local)
 
 1. Create a `.env` file in the root directory:

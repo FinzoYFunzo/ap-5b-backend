@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "docker-dev": "docker compose -f docker-compose-dev.yml up",
+    "docker-build": "docker compose -f docker-compose-dev.yml up --build",
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "DEBUG=myapp:* nodemon --watch 'src/**/*.ts' --exec 'tsx' src/index.ts",
@@ -27,7 +28,9 @@
     "@prisma/client": "^6.16.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
