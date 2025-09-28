@@ -1,3 +1,7 @@
+## Documentation
+
+The API documentation is available at the `/api-docs` route.
+
 ## Run in Docker
 
 This can be achive by creating a `.env` file with the following:
