@@ -9,7 +9,7 @@ services:
     tty: true
     volumes:
       - .:/usr/src/app
-      #- /usr/src/app/node_modules
+      - /usr/src/app/node_modules
     networks:
       - prisma-network
 
