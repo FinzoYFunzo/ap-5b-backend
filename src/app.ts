@@ -5,6 +5,8 @@ import exampleRoutes from './routes/exampleRoutes';
 import healthRoutes from "./routes/healthRoutes";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
+import registerRoutes from './routes/registerRoutes'
+import cookieParser from 'cookie-parser';
 
 // Swagger setup
 const options = {
@@ -23,15 +25,17 @@ const swaggerSpec = swaggerJSDoc(options);
 export const createApp = () => {
     const app = express();
 
-    app.use(errorHandler);
+    
     app.use(cors());
 
     app.use(express.json()); // body parser
+    app.use(cookieParser());
 
     app.use("/", exampleRoutes);
     app.use("/", healthRoutes);
-
+    app.use("/", registerRoutes);
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger
-
+    
+    app.use(errorHandler);
     return app;
 }
