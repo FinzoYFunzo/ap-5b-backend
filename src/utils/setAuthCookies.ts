@@ -42,3 +42,8 @@ export const setAuthCookies = (res: Response, token: string, refreshToken: strin
         maxAge: 1000 * 60 * 60 * 24 * 7 // 1 semana
     });
 }
+
+export const unsetAuthCookies = (res: Response) => {
+    res.clearCookie("access_token");
+    res.clearCookie("refresh_token")
+}
