@@ -6,6 +6,7 @@ import healthRoutes from "./routes/healthRoutes";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import registerRoutes from './routes/registerRoutes'
+import loginRoutes from './routes/loginRoutes'
 import cookieParser from 'cookie-parser';
 
 // Swagger setup
@@ -34,6 +35,7 @@ export const createApp = () => {
     app.use("/", exampleRoutes);
     app.use("/", healthRoutes);
     app.use("/", registerRoutes);
+    app.use("/", loginRoutes);
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger
     
     app.use(errorHandler);
