@@ -1,7 +1,7 @@
 import { $Enums, PrismaClient } from "@prisma/client"
 import { HttpError } from "../middlewares/errorHandler";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt, { TokenExpiredError } from "jsonwebtoken";
 import env from "../config/env";
 import { generateTokens } from "../utils/setAuthCookies";
 
@@ -52,24 +52,31 @@ export const registerUserService = async (
 }
 
 export const refreshTokenService = async (refreshToken: string) => {
-    const decodedToken = jwt.verify(refreshToken, env.jwt_secret) as jwt.JwtPayload;
-    const userId = decodedToken.id;
-    const user = await prisma.user.findUnique({where: {
-        id: userId
-    }});
+    try {
+        const decodedToken = jwt.verify(refreshToken, env.jwt_secret) as jwt.JwtPayload;
+        const userId = decodedToken.id;
+        const user = await prisma.user.findUnique({where: {
+            id: userId
+        }});
+        
+        if (!user) return;
+        const { token: newToken, refreshToken: newRefreshToken } = generateTokens(
+            user.id,
+            user.email,
+            user.role,
+            user.username,
+        );
     
-    if (!user) return;
-    const { token: newToken, refreshToken: newRefreshToken } = generateTokens(
-        user.id,
-        user.email,
-        user.role,
-        user.username,
-    );
-
-    const { password: _, ...userWithoutPassword } = user;
-    return {
-        token: newToken,
-        refreshToken: newRefreshToken,
-        user: userWithoutPassword,
-    };
+        const { password: _, ...userWithoutPassword } = user;
+        return {
+            token: newToken,
+            refreshToken: newRefreshToken,
+            user: userWithoutPassword,
+        };
+    } catch (error: any) {
+        if (error instanceof TokenExpiredError) {
+            throw new HttpError(401, "Token de refresco expirado");
+        }
+        throw new HttpError(500, "Error interno del servidor");
+    }
 }
