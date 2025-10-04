@@ -1,8 +1,8 @@
 import { Response, Request, Router } from "express";
 import { authenticate } from "../middlewares/authMiddleware";
-import { 
-    registerUserController, 
-    refreshTokenController 
+import {
+  registerUserController,
+  refreshTokenController,
 } from "../controllers/registerController";
 
 const router = Router();
@@ -102,10 +102,9 @@ router.post("/register", registerUserController);
  *         description: Error interno del servidor
  */
 
-
 router.get("/protected", authenticate, (req: Request, res: Response) => {
   res.status(200).json({
-    message: "Esta es una ruta protegida, acceso exitoso"
+    message: "Esta es una ruta protegida, acceso exitoso",
   });
 });
 /**
@@ -143,7 +142,6 @@ router.get("/protected", authenticate, (req: Request, res: Response) => {
  *                   type: string
  *                   example: Autenticación fallida, Token expirado.
  */
-
 
 router.get("/refresh-token", refreshTokenController);
 /**

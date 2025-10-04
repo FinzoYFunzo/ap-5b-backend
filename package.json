@@ -10,7 +10,15 @@
     "start": "node dist/index.js",
     "dev": "DEBUG=myapp:* nodemon --watch 'src/**/*.ts' --exec 'tsx' src/index.ts",
     "lint": "eslint 'src/**/*.ts'",
-    "db:deploy": "npx prisma migrate deploy && npx prisma generate"
+    "db:deploy": "npx prisma migrate deploy && npx prisma generate",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*": "prettier --write --ignore-unknown"
   },
   "repository": {
     "type": "module",
@@ -36,6 +44,7 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.37.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
@@ -44,10 +53,15 @@
     "@types/node": "^24.3.1",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
     "nodemon": "^3.1.10",
+    "prettier": "3.6.2",
     "prisma": "^6.16.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.5",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.45.0"
   }
 }
