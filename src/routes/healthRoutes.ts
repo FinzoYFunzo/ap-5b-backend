@@ -24,8 +24,8 @@ const router = Router();
  *                   example: Healthy
  */
 router.get("/health", (req: Request, res: Response) => {
-    res.status(200)
-    res.json({ message: "Healthy" });
+  res.status(200);
+  res.json({ message: "Healthy" });
 });
 
 export default router;

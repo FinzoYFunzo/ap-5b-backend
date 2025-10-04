@@ -6,27 +6,28 @@ The API documentation is available at the `/api-docs` route.
 
 This can be achive by creating a `.env` file with the following:
 
-   ```env
-   # Database
-   DATABASE_URL="postgresql://postgres:prisma@postgres_db:5432/postgres?schema=public"
+```env
+# Database
+DATABASE_URL="postgresql://postgres:prisma@postgres_db:5432/postgres?schema=public"
 
-   # Application
-   PORT=3000
-   NODE_ENV=development
-   ```
+# Application
+PORT=3000
+NODE_ENV=development
+```
 
 Then, build and run the Docker container with:
 
-   ```bash
-   npm run docker-dev
-   ```
+```bash
+npm run docker-dev
+```
 
 This will build a Docker image from the source code, create a container with PostgreSQL and Prisma Studio, and apply any pending migrations.
 
 **Services**
-* endpoint: `http://localhost:3000/`
-* Prisma Studio: `http://localhost:5555/`
-* PostgresSQL: `http://localhost:5433/`
+
+- endpoint: `http://localhost:3000/`
+- Prisma Studio: `http://localhost:5555/`
+- PostgresSQL: `http://localhost:5433/`
 
 > If you make changes to the **project dependencies**, make sure to rebuild the Docker container by running `npm run docker-build`.
 
@@ -52,11 +53,12 @@ This will build a Docker image from the source code, create a container with Pos
    # Create the database
    psql -U postgres -c "CREATE DATABASE <dbname>;"
 
+   ```
 
 3. **Generate Prisma Client**:
-   
+
    Run any pending migratrion with:
-   
+
    ```bash
    npx prisma migrate deploy
    ```

@@ -1,8 +1,5 @@
 import { Response, Request, Router } from "express";
-import { authenticate } from "../middlewares/authMiddleware";
-import { 
-    loginUserController
-} from "../controllers/loginController";
+import { loginUserController } from "../controllers/loginController";
 import { unsetAuthCookies } from "../utils/setAuthCookies";
 
 const router = Router();
@@ -85,14 +82,14 @@ const router = Router();
  *                  refreshToken:
  *                    type: string
  *                    description: Token JWT de refresco
- *                    example: "sadjh2..."        
+ *                    example: "sadjh2..."
  *       400:
  *         description: Error en los datos de entrada (validación fallida)
  *       401:
  *         description: Las credenciales entregadas no pertenecen a un usuario
  *       500:
  *         description: Error interno del servidor
- *                    
+ *
  */
 router.post("/login", loginUserController);
 
@@ -119,10 +116,10 @@ router.post("/login", loginUserController);
  *                   example: "Cookies eliminadas con éxito"
  */
 router.post("/logout", (req: Request, res: Response) => {
-    unsetAuthCookies(res)
-    res.status(200).json({
-        message: "Cookies eliminadas con éxito"
-    })
+  unsetAuthCookies(res);
+  res.status(200).json({
+    message: "Cookies eliminadas con éxito",
+  });
 });
 
 export default router;

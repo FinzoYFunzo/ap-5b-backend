@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {Request, Response} from "express";
+import { Request, Response } from "express";
 
 const router = Router();
 
@@ -18,10 +18,10 @@ const router = Router();
  *           application/json:
  *             schema:
  *               type: string
- *               example: Hola papitos y mamitas 
+ *               example: Hola papitos y mamitas
  */
 router.get("/example", (req: Request, res: Response) => {
-    res.send("Hola papitos y mamitas")
+  res.send("Hola papitos y mamitas");
 });
 
 export default router;
