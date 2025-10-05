@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "docker-dev": "docker compose -f docker-compose-dev.yml up",
-    "docker-build": "docker compose -f docker-compose-dev.yml up --build",
+    "docker-dev": "docker compose --profile development -f docker-compose.yml up",
+    "docker-build": "docker compose --profile development -f docker-compose.yml up --build",
+    "docker-prod": "docker compose -f docker-compose.yml up -d --build",
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "DEBUG=myapp:* nodemon --watch 'src/**/*.ts' --exec 'tsx' src/index.ts",
     "lint": "eslint 'src/**/*.ts'",
     "db:deploy": "npx prisma migrate deploy && npx prisma generate",
-    "prepare": "husky"
+    "prepare": "if [ \"$NODE_ENV\" = \"development\" ]; then husky install; fi"
   },
   "lint-staged": {
     "**/*.{js,ts}": [
