@@ -1,4 +1,4 @@
-import { $Enums, PrismaClient } from "@prisma/client";
+import { UserRole, PrismaClient } from "@prisma/client";
 import { HttpError } from "../middlewares/errorHandler";
 import bcrypt from "bcrypt";
 import jwt, { TokenExpiredError } from "jsonwebtoken";
@@ -14,7 +14,7 @@ export interface registerRequestBody {
   last_name_2?: string;
   email: string;
   password: string;
-  role?: $Enums.UserRole;
+  role?: UserRole;
   phone?: string;
   confirm_password: string;
 }
