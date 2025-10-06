@@ -18,17 +18,9 @@ COPY . .
 RUN npm run build
 
 # -----------------------------
-# Runtime (development)
-# -----------------------------
-FROM builder as development
-EXPOSE 3000
-CMD ["sh", "-c", "npm i && npm run db:deploy && npm run dev"]
-
-
-# -----------------------------
 # Runtime (production)
 # -----------------------------
-FROM builder AS production
+FROM node:lts-alpine3.17 AS production
 WORKDIR /usr/src/app
 # Copiamos los archivos esenciales desde el builder
 COPY --from=builder /usr/src/app/dist ./dist
