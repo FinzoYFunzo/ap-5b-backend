@@ -14,6 +14,8 @@ RUN npm ci
 # Copiamos el resto del código fuente
 COPY . .
 
+RUN npx prisma generate
+
 # Compilamos el código
 RUN npm run build
 
