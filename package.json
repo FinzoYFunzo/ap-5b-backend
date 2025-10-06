@@ -6,7 +6,7 @@
   "scripts": {
     "docker-dev": "docker compose -f docker-compose-dev.yml up",
     "docker-build": "docker compose -f docker-compose-dev.yml up --build",
-    "docker-prod": "docker compose -f docker-compose-prod.yml up -d --build",
+    "docker-prod": "docker-compose -f docker-compose-prod.yml up -d --build",
     "docker-prod-down": "docker compose -f docker-compose-prod.yml down",
     "build": "tsc",
     "start": "node dist/index.js",
