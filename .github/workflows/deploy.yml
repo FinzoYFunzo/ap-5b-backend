@@ -30,6 +30,8 @@ jobs:
             echo "🚀 Conectado a la EC2, iniciando despliegue..."
             cd /home/ubuntu/ap-5b-backend
 
+            git config --global --add safe.directory /home/ubuntu/ap-5b-backend
+
             echo "📦 Actualizando código desde main..."
             git pull origin main
 
