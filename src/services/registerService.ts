@@ -40,6 +40,7 @@ export const registerUserService = async (
       data: userData,
     });
   } catch (error: unknown) {
+    console.log(error);
     if (error instanceof HttpError) {
       throw error;
     }
